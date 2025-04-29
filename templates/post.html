@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+
+{% block head %}{{ post.title }}{% endblock %}
+
+{% block content %}
+
+    <h3>{{ post.user }}</h3>
+    <p>{{ post.title }}</p>
+    <p>{{ post.text }}</p>
+    <p>Category: {{ post.category }}</p>
+
+    <a href="{% url 'create_comment' post.pk %}">Add comment</a>
+
+    {% if comments %}
+        <h4>Comments:</h4>
+        {% for comment in comments %}
+            <br>
+            <p>User: {{ comment.user }}</p>
+            <p>{{ comment.text }}</p>
+            <p>Is accepted: {{ comment.is_accepted }}</p>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

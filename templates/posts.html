@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+
+{% block head %}General{% endblock %}
+
+{% block content %}
+
+    {% if posts %}
+        <h2>All Posts:</h2><hr>
+
+        {% for post in posts %}
+            <h4>{{post.user.username}}</h4>
+            {{ post.text }}
+            <a href="{% url 'post_detail' post.pk %}">See entire</a>
+        {% endfor %}
+
+    {% else %}
+        <h2>There isn't any posts right now</h2>
+    {% endif %}
+
+{% endblock %}

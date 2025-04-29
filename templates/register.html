@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+
+
+{% block head %}Registration{% endblock %}
+
+
+{% block content %}
+    <h2>Registration</h2>
+    <form action="{% url 'registration' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" valueRegister>
+    </form>
+{% endblock %}

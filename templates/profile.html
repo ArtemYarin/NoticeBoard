@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+
+{% block head %}{{author.username}}{% endblock %}
+
+{% block content %}
+    <h1>Profile page</h1>
+    <div>
+        <p>Username: {{ author.username }}</p>
+        <p>First name: {{ author.first_name }}</p>
+        <p>Last name: {{ author.last_name }}</p>
+        <p>Email: {{ author.email }}</p>
+    </div><hr><br><br>
+
+    <h3>Your posts:</h3>
+    {% if posts %}
+        {% for post in posts %}
+            <hr>
+            {{ post.text }}
+            <a href="{% url 'post_detail' post.pk %}">See entire</a>
+            <a href="{% url 'delete_post' post.pk %}">Delete post</a>
+        {% endfor %}
+    {% else %}
+        <h4>You don't have any posts right now</h4>
+    {% endif %}
+
+    <hr><br><br>
+    <h3>Your comments:</h3>
+    {% if comments %}
+        {% for i in comments %}
+            {% for comment in i %}
+                <hr>
+                <p>{{ comment.user }}</p>
+                <p>{{ comment.text }}</p>
+                <p>Accepted: {{ comment.is_accepted }}</p>
+                <form action="{% url 'accept_comment' comment.pk user.pk %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Accept comment">
+                </form>
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        <h4>You don't have any comments right now</h4>
+    {% endif %}
+{% endblock %}
