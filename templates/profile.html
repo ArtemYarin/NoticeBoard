@@ -15,8 +15,9 @@
     {% if posts %}
         {% for post in posts %}
             <hr>
-            {{ post.text }}
+            {{ post.title }}
             <a href="{% url 'post_detail' post.pk %}">See entire</a>
+            <a href="{% url 'update_post' post.pk %}">Edit</a>
             <a href="{% url 'delete_post' post.pk %}">Delete post</a>
         {% endfor %}
     {% else %}
@@ -25,18 +26,26 @@
 
     <hr><br><br>
     <h3>Your comments:</h3>
+    <form action="" method="get">
+        {{filterset.form.as_p}}
+        <input type="submit" value="Find">
+    </form>
+
     {% if comments %}
-        {% for i in comments %}
-            {% for comment in i %}
-                <hr>
-                <p>{{ comment.user }}</p>
-                <p>{{ comment.text }}</p>
-                <p>Accepted: {{ comment.is_accepted }}</p>
-                <form action="{% url 'accept_comment' comment.pk user.pk %}" method="post">
-                    {% csrf_token %}
+        {% for comment in comments %}
+            <hr>
+            <p>{{ comment.user }}</p>
+            <p>{{ comment.text }}</p>
+            <p>Accepted: {{ comment.is_accepted }}</p>
+
+            <form action="{% url 'accept_comment' comment.pk %}" method="post">
+                {% csrf_token %}
+                {% if comment.is_accepted %}
+                    <input type="submit" value="Not accept comment">
+                {% else %}
                     <input type="submit" value="Accept comment">
-                </form>
-            {% endfor %}
+                {% endif %}
+            </form>
         {% endfor %}
     {% else %}
         <h4>You don't have any comments right now</h4>

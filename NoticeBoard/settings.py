@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_ckeditor_5',
-    'boardapp',
+    'django_filters',
+    'boardapp.apps.BoardappConfig',
 ]
 
 MIDDLEWARE = [
@@ -117,6 +118,14 @@ USE_TZ = True
 LOGIN_URL = 'login/'
 LOGIN_REDIRECT_URL = '/'
 
+# Celery
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
@@ -131,6 +140,15 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_USE_TLS = True 
+EMAIL_PORT = 587 
+EMAIL_HOST_USER = 'ein3.14pi@gmail.com' 
+EMAIL_HOST_PASSWORD = 'andn fmon cepa ooig' 
+DEFFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # ckeditor
 customColorPalette = [

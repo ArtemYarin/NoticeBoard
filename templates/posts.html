@@ -9,8 +9,8 @@
 
         {% for post in posts %}
             <h4>{{post.user.username}}</h4>
-            {{ post.text }}
-            <a href="{% url 'post_detail' post.pk %}">See entire</a>
+            {{ post.text|safe }}
+            <a href="{% url 'post_detail' post.pk %}">See entire</a><hr>
         {% endfor %}
 
     {% else %}

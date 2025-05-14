@@ -6,7 +6,7 @@
 
     <h3>{{ post.user }}</h3>
     <p>{{ post.title }}</p>
-    <p>{{ post.text }}</p>
+    <p>{{ post.text|safe }}</p>
     <p>Category: {{ post.category }}</p>
 
     <a href="{% url 'create_comment' post.pk %}">Add comment</a>
