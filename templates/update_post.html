@@ -1,0 +1,12 @@
+{% extends 'main.html' %}
+
+{% block head %}Edit post{% endblock %}
+
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ form.media }}
+        <input type="submit" value="OK">
+    </form>
+{% endblock %}
